@@ -1,0 +1,7 @@
+.DS_Store
+node_modules
+dist/
+yarn.lock
+.nyc_output/
+docs-dist
+.cache
