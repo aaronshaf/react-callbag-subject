@@ -1,6 +1,6 @@
 {
   "name": "react-callbag",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Callbag-related React components",
   "main": "dist/index.js",
   "files": [
