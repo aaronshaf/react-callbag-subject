@@ -41,7 +41,6 @@ const operator = source =>
     count: state.count + data
   }))
   |> startWith({ count: 0 });
-*/
 ```
 
 ```jsx
