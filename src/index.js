@@ -13,7 +13,7 @@ export class Subject extends Component {
 
     pipe(
       this.subject,
-      this.props.pipeline,
+      this.props.operator,
       subscribe({
         next: state => this.setState(state)
       })
