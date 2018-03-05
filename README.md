@@ -18,7 +18,7 @@ import skip from "callbag-skip";
 import { debounce } from "callbag-debounce";
 import startWith from "callbag-start-with";
 
-const operator = source =>
+const reducer = source =>
   pipe(
     source,
     skip(1),
@@ -33,7 +33,7 @@ const operator = source =>
 Or if you're blessed with the pipeline operator:
 
 ```javascript
-const operator = source =>
+const reducer = source =>
   source
   |> skip(1)
   |> debounce(250)
@@ -44,7 +44,7 @@ const operator = source =>
 ```
 
 ```jsx
-<Subject operator={operator}>
+<Subject reducer={reducer}>
   {(state, send) => (
     <div>
       <button onClick={send(-1)}>Subtract 1</button>

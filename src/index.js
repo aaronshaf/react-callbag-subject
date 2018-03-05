@@ -19,7 +19,7 @@ export class Subject extends Component {
   componentDidMount() {
     pipe(
       this.subject,
-      this.props.operator,
+      this.props.reducer,
       subscribe({
         next: state => this.setState(state)
       })
