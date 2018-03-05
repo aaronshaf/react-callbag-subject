@@ -21,6 +21,10 @@ const reducer = source =>
 ReactDOM.render(
   <div>
     <h1>react-callbag</h1>
+    <ul>
+      <li>Skips first action</li>
+      <li>Debounces at 250ms</li>
+    </ul>
     <pre>
       <code className="javascript">{`import { Subject } from "react-callbag";
 import pipe from "callbag-pipe";
@@ -63,7 +67,7 @@ const reducer = source =>
     </pre>
     <Subject reducer={reducer}>
       {(state, send) => (
-        <div>
+        <div><
           <button onClick={send(-1)}>Subtract 1</button>
           <button onClick={send(1)}>Add 1</button>
           <div>{state.count}</div>
