@@ -8,7 +8,7 @@
     "start": "parcel example/index.html -d docs",
     "build-component": "babel src --out-dir dist",
     "build": "rm dist/* && npm run build-component",
-    "build-docs": "parcel build example/index.html -d docs --public-url /",
+    "build-docs": "parcel build example/index.html -d docs --public-url ./",
     "test":
       "nyc mocha --require babel-register --require spec/setup.js spec/**/*.spec.js",
     "lint": "eslint .; exit 0"
