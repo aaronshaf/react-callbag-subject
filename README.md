@@ -22,11 +22,9 @@ const operator = source =>
     source,
     skip(1),
     debounce(250),
-    map(([state, data, _event]) => {
-      return {
-        count: state.count + data
-      };
-    })
+    map(([state, data, _event]) => ({
+      count: state.count + data
+    }))
   );
 ```
 
