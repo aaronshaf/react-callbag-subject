@@ -1,5 +1,7 @@
 Asynchronous reducer pipelines using [callbags](https://github.com/staltz/callbag-basics).
 
+Try it now on [CodeSandbox](https://codesandbox.io/s/mozmv6vrmp).
+
 ## Install
 
 ```
