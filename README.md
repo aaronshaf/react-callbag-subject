@@ -28,6 +28,15 @@ const operator = source =>
       count: state.count + data
     }))
   );
+
+// if you're blessed with the pipeline operator
+const operator = source =>
+  source
+  |> skip(1)
+  |> debounce(250)
+  |> map(([state, data, _event]) => ({
+    count: state.count + data
+  }));
 ```
 
 ```jsx
