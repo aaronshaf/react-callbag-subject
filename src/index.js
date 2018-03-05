@@ -9,8 +9,14 @@ export class Subject extends Component {
 
     this.subject = makeSubject();
 
-    this.state = this.props.initialState;
+    this.state = {};
 
+    this.handleSend = data => event => {
+      this.subject(1, [this.state, data, event]);
+    };
+  }
+
+  componentDidMount() {
     pipe(
       this.subject,
       this.props.operator,
@@ -18,10 +24,6 @@ export class Subject extends Component {
         next: state => this.setState(state)
       })
     );
-
-    this.handleSend = data => event => {
-      this.subject(1, [this.state, data, event]);
-    };
   }
 
   componentWillMount() {

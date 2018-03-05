@@ -40,6 +40,7 @@
     "callbag-debounce": "^2.0.0",
     "callbag-map": "^1.0.1",
     "callbag-skip": "^1.0.0",
+    "callbag-start-with": "^1.0.1",
     "chai": "^3.5.0",
     "chai-enzyme": "^0.5.2",
     "css-loader": "^0.25.0",
