@@ -1,81 +1,111 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Subject } from "../src/index";
+import { Subject, reducerFromMap, startWith } from "../src/index";
 import pipe from "callbag-pipe";
-import map from "callbag-map";
-import skip from "callbag-skip";
 import { debounce } from "callbag-debounce";
-import startWith from "callbag-start-with";
 
-const reducer = source =>
+const reducers1 = new Map([
+  ["SUBTRACT", (state, amount) => ({ count: state.count - amount })],
+  ["ADD", (state, amount) => ({ count: state.count + amount })],
+  ["MULTIPLY", (state, multiplier) => ({ count: state.count * multiplier })]
+]);
+
+const pipeline1 = actions =>
+  pipe(actions, reducerFromMap(reducers1), startWith({ count: 0 }));
+
+const Example1 = () => (
+  <Subject pipeline={pipeline1}>
+    {(state, send) => (
+      <div>
+        <button onClick={() => send("SUBTRACT", 1)}>Remove 1</button>
+        <button onClick={() => send("ADD", 1)}>Add 1</button>
+        <button onClick={() => send("MULTIPLY", 2)}>Multiply by 2</button>
+        <div>{state.count}</div>
+      </div>
+    )}
+  </Subject>
+);
+
+const reducers2 = new Map([
+  ["ADD", (state, amount) => ({ counter: state.counter + amount })]
+]);
+
+const pipeline2 = actions =>
   pipe(
-    source,
-    skip(1),
+    actions,
     debounce(250),
-    map(([state, data, _event]) => ({
-      count: state.count + data
-    })),
-    startWith({ count: 0 })
+    reducerFromMap(reducers2),
+    startWith({ counter: 1 })
   );
+
+const Example2 = () => (
+  <Subject pipeline={pipeline2}>
+    {(state, send) => (
+      <div>
+        <button onClick={() => send("ADD", 1)}>Add 1</button>
+        <div>{state.counter}</div>
+      </div>
+    )}
+  </Subject>
+);
 
 ReactDOM.render(
   <div>
     <h1>react-callbag</h1>
+
+    <h2>Basic usage</h2>
     <pre>
-      <code className="javascript">{`import { Subject } from "react-callbag";
-import pipe from "callbag-pipe";
-import map from "callbag-map";
-import skip from "callbag-skip";
-import { debounce } from "callbag-debounce";
-import startWith from "callbag-start-with";
+      <code className="javascript">{`const reducers = new Map([
+  ["SUBTRACT", (state, amount) => ({ count: state.count - 1 })],
+  ["ADD", (state, amount) => ({ count: state.count + 1 })],
+  ["MULTIPLY", (state, multiplier) => ({ count: state.count * multiplier })]
+]);
 
-const reducer = source =>
-  pipe(
-    source,
-    skip(1),
-    debounce(250),
-    map(([state, data, _event]) => ({
-      count: state.count + data
-    })),
-    startWith({ count: 0 })
-  );
+const pipeline = actions =>
+  pipe(actions, reducerFromMap(reducers1), startWith({ count: 0 }));
 
-/* Or if you're blessed with the pipeline operator:
-const reducer = source =>
-  source
-  |> skip(1)
-  |> debounce(250)
-  |> map(([state, data, _event]) => ({
-    count: state.count + data
-  }))
-  |> startWith({ count: 0 });
-*/
-
-<Subject reducer={reducer}>
+<Subject pipeline={pipeline}>
   {(state, send) => (
     <div>
-      <button onClick={send(-1)}>Subtract -1</button>
-      <button onClick={send(1)}>Add 1</button>
+      <button onClick={() => send("SUBTRACT", 1)}>Remove 1</button>
+      <button onClick={() => send("ADD", 1)}>Add 1</button>
+      <button onClick={() => send("MULTIPLY", 2)}>Multiply by 2</button>
       <div>{state.count}</div>
     </div>
   )}
 </Subject>`}</code>
     </pre>
-    <Subject reducer={reducer}>
-      {(state, send) => (
-        <div>
-          <ul>
-            <li>Skips first action</li>
-            <li>Debounces at 250ms</li>
-          </ul>
-          <button onClick={send(-1)}>Subtract 1</button>
-          <button onClick={send(1)}>Add 1</button>
-          <div>{state.count}</div>
-        </div>
-      )}
-    </Subject>
+    <Example1 />
+
+    <h2>Debounced</h2>
+    <pre>
+      <code className="javascript">{`const reducers = new Map([
+  ["ADD", (state, amount) => ({ counter: state.counter + amount })]
+]);
+
+const pipeline = actions =>
+  pipe(
+    actions,
+    debounce(250),
+    reducerFromMap(reducers),
+    startWith({ counter: 1 })
+  );
+
+<Subject pipeline={pipeline}>
+  {(state, send) => (
+    <div>
+      <button onClick={() => send("ADD", 1)}>Add 1</button>
+      <div>{state.counter}</div>
+    </div>
+  )}
+</Subject>
+`}</code>
+    </pre>
+    <Example2 />
   </div>,
   document.getElementById("root")
 );
 
-hljs.highlightBlock(document.querySelector("pre"));
+Array.from(document.querySelectorAll("pre")).forEach(pre =>
+  hljs.highlightBlock(pre)
+);

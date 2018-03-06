@@ -3,22 +3,17 @@
   "version": "2.0.2",
   "description": "Callbag-related React components",
   "main": "dist/index.js",
-  "files": [
-    "dist/index.js"
-  ],
+  "files": ["dist/index.js"],
   "scripts": {
     "start": "parcel example/index.html -d docs",
     "build-component": "babel src --out-dir dist",
     "build": "mkdir -p dist && rm -df dist/* && npm run build-component",
     "build-docs": "parcel build example/index.html -d docs --public-url ./",
-    "test": "nyc mocha --require babel-register --require spec/setup.js spec/**/*.spec.js",
+    "test":
+      "nyc mocha --require babel-register --require spec/setup.js spec/**/*.spec.js",
     "lint": "eslint .; exit 0"
   },
-  "keywords": [
-    "component",
-    "react",
-    "react-component"
-  ],
+  "keywords": ["component", "react", "react-component"],
   "author": "Aaron Shafovaloff <aaronshaf@gmail.com>",
   "homepage": "https://github.com/aaronshaf/react-callbag",
   "repository": {
@@ -38,7 +33,6 @@
     "babel-preset-react": "^6.11.1",
     "babel-register": "^6.16.3",
     "callbag-debounce": "^2.0.0",
-    "callbag-map": "^1.0.1",
     "callbag-skip": "^1.0.0",
     "callbag-start-with": "^1.0.1",
     "chai": "^3.5.0",
@@ -61,6 +55,7 @@
     "react-dom": "^15.3.1"
   },
   "dependencies": {
+    "callbag-map": "^1.0.1",
     "callbag-pipe": "^1.1.1",
     "callbag-subject": "^1.0.2",
     "callbag-subscribe": "^1.2.0"
