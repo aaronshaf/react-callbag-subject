@@ -51,7 +51,7 @@ const Example2 = () => (
 
 ReactDOM.render(
   <div>
-    <h1>react-callbag</h1>
+    <h1>react-callbag-subject</h1>
 
     <h2>Basic usage</h2>
     <pre>

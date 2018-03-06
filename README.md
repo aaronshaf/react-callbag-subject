@@ -5,7 +5,7 @@ Try it now on [CodeSandbox](https://codesandbox.io/s/mozmv6vrmp).
 ## Install
 
 ```
-npm install react-callbag --save
+npm install react-callbag-subject --save
 ```
 
 ## Pipeline operator
@@ -15,7 +15,7 @@ If you don't have the [pipeline operator](https://github.com/tc39/proposal-pipel
 ## Basic usage
 
 ```javascript
-import { Subject, reducerFromMap, startWith } from "react-callbag";
+import { Subject, reducerFromMap, startWith } from "react-callbag-subject";
 
 const reducers = new Map([
   ["SUBTRACT", (state, amount) => ({ count: state.count - amount })],
